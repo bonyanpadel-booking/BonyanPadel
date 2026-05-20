@@ -15,14 +15,15 @@ header {
 
 nav {
   background-color: #1e293b;
-  padding: 15px;
+  padding: 15px;A
   text-align: center;
 }
 nav a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
   margin: 15px;
   font-weight: bold;
+  display: inline-block;
 }
 
 section {
@@ -86,5 +87,54 @@ footer {
   text-align: center;
   padding: 20px;
   margin-top: 40px;
+}
+@media (max-width: 768px) {
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .hero-image {
+    width: 95%;
+    height: auto;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+}
+form {
+  background-color: white;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: black;
+}
+
+form button {
+  width: 100%;
 }
 }
