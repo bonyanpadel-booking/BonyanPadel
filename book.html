@@ -2,70 +2,118 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Court</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Court</title>
 
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-  <header>
-    <h1>Book Your Court</h1>
-    <p>Select your preferred time slot</p>
-  </header>
-  <nav>
-  <a href="index.html">Home</a>
-  <a href="register.html">Register</a>
-  <a href="login.html">Login</a>
-  <a href="dashboard.html">Dashboard</a>
-  <a href="book.html">Book Court</a>
-  <a href="schedule.html">Schedule</a>
-  <a href="mybookings.html">My Bookings</a>
-  <a href="openmatches.html">Open Matches</a>
-  <a href="rules.html">Rules</a>
-  <a href="privacy.html">Privacy</a>
-  <a href="contact.html">Contact</a>
-  <a href="admin.html">Admin</a>
+<header>
+<h1>Book Your Court</h1>
+<p>Select your preferred time slot</p>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="register.html">Register</a>
+<a href="login.html">Login</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="book.html">Book Court</a>
+<a href="schedule.html">Schedule</a>
+<a href="mybookings.html">My Bookings</a>
+<a href="openmatches.html">Open Matches</a>
+<a href="rules.html">Rules</a>
+<a href="privacy.html">Privacy</a>
+<a href="contact.html">Contact</a>
+<a href="admin.html">Admin</a>
 </nav>
-  <section>
 
-  <h2>Reserve a Time</h2>
+<section>
 
-  <form>
+<h2>Reserve a Time</h2>
 
-  <label>Booking Date</label>
-<input type="date">
+<form id="bookingForm">
+<label>Unit Number</label>
+<input type="text" name="UnitNumber">
+
+<label>Username</label>
+<input type="text" name="Username">
+
+<label>WhatsApp</label>
+<input type="text" name="WhatsApp">
+
+<label>Email</label>
+<input type="email" name="Email">
+<label>Booking Date</label>
+<input type="date" name="BookingDate" required>
+
 <label>Duration</label>
-<select>
-  <option>1 Hour</option>
-  <option>2 Hours</option>
+<select name="Duration">
+<option>1 Hour</option>
+<option>2 Hours</option>
 </select>
 
 <label>Time Slot</label>
-<select>
-  <option>2:00 PM - 3:00 PM</option>
-  <option>3:00 PM - 4:00 PM</option>
-  <option>4:00 PM - 5:00 PM</option>
-  <option>5:00 PM - 6:00 PM</option>
-  <option>6:00 PM - 7:00 PM</option>
-  <option>7:00 PM - 8:00 PM</option>
-  <option>8:00 PM - 9:00 PM</option>
-  <option>9:00 PM - 10:00 PM</option>
-  <option>10:00 PM - 11:00 PM</option>
+<select name="TimeSlot">
+<option>2:00 PM - 3:00 PM</option>
+<option>3:00 PM - 4:00 PM</option>
+<option>4:00 PM - 5:00 PM</option>
+<option>5:00 PM - 6:00 PM</option>
+<option>6:00 PM - 7:00 PM</option>
+<option>7:00 PM - 8:00 PM</option>
+<option>8:00 PM - 9:00 PM</option>
+<option>9:00 PM - 10:00 PM</option>
+<option>10:00 PM - 11:00 PM</option>
 </select>
 
 <label>Match Type</label>
-<select>
-  <option>Closed Match</option>
-  <option>Open Match</option>
+<select name="MatchType">
+<option>Closed Match</option>
+<option>Open Match</option>
 </select>
 
-
 <label>Notes (Optional)</label>
-<input type="text" placeholder="Any notes">
+<input type="text" name="Notes" placeholder="Any notes">
 
 <button type="submit">Book Now</button>
 
 </form>
+
+</section>
+
+<footer>
+<p>© 2026 Bonyan Padel. All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+
+e.preventDefault();
+
+fetch("https://script.google.com/macros/s/AKfycbzGGFRUE5K1gtFKnmZbMvK-leYyLC0afG16AHpxe15WOtyOsnlMd0SFame5jjlmPCjr/exec", {
+method: "POST",
+body: JSON.stringify({
+BookingDate: document.querySelector('[name="BookingDate"]').value,
+Duration: document.querySelector('[name="Duration"]').value,
+TimeSlot: document.querySelector('[name="TimeSlot"]').value,
+MatchType: document.querySelector('[name="MatchType"]').value,
+Notes: document.querySelector('[name="Notes"]').value
+})
+})
+.then(response => response.text())
+.then(data => {
+alert("Booking Submitted Successfully");
+document.getElementById("bookingForm").reset();
+})
+.catch(error => {
+alert("Error Submitting Booking");
+});
+
+});
+</script>
+
+</body>
+</html>
