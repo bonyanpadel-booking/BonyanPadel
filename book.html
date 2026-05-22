@@ -35,23 +35,37 @@
 
   <form>
 
-    <input type="text" placeholder="Your Name">
+  <label>Booking Date</label>
+<input type="date">
+<label>Duration</label>
+<select>
+  <option>1 Hour</option>
+  <option>2 Hours</option>
+</select>
 
-    <input type="text" placeholder="Apartment Number">
+<label>Time Slot</label>
+<select>
+  <option>2:00 PM - 3:00 PM</option>
+  <option>3:00 PM - 4:00 PM</option>
+  <option>4:00 PM - 5:00 PM</option>
+  <option>5:00 PM - 6:00 PM</option>
+  <option>6:00 PM - 7:00 PM</option>
+  <option>7:00 PM - 8:00 PM</option>
+  <option>8:00 PM - 9:00 PM</option>
+  <option>9:00 PM - 10:00 PM</option>
+  <option>10:00 PM - 11:00 PM</option>
+</select>
 
-    <select>
-      <option>2:00 PM - 3:00 PM</option>
-      <option>3:00 PM - 4:00 PM</option>
-      <option>4:00 PM - 5:00 PM</option>
-      <option>5:00 PM - 6:00 PM</option>
-    </select>
+<label>Match Type</label>
+<select>
+  <option>Closed Match</option>
+  <option>Open Match</option>
+</select>
 
-    <button type="submit">Confirm Booking</button>
 
-  </form>
+<label>Notes (Optional)</label>
+<input type="text" placeholder="Any notes">
 
-</section>
+<button type="submit">Book Now</button>
 
-</body>
-
-</html>
+</form>
