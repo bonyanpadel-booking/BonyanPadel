@@ -106,13 +106,12 @@ Status: "Approved"
 })
 .then(response => response.text())
 .then(data => {
-alert("Booking Submitted Successfully");
-document.getElementById("bookingForm").reset();
-})
-.catch(error => {
-alert("Error Submitting Booking");
-});
 
+alert(data);
+
+document.getElementById("bookingForm").reset();
+
+})
 });
 </script>
 
