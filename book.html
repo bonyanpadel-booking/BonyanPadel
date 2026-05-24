@@ -36,17 +36,6 @@
 <h2>Reserve a Time</h2>
 
 <form id="bookingForm">
-<label>Unit Number</label>
-<input type="text" name="UnitNumber">
-
-<label>Username</label>
-<input type="text" name="Username">
-
-<label>WhatsApp</label>
-<input type="text" name="WhatsApp">
-
-<label>Email</label>
-<input type="email" name="Email">
 <label>Booking Date</label>
 <input type="date" name="BookingDate" required>
 
@@ -58,6 +47,9 @@
 
 <label>Time Slot</label>
 <select name="TimeSlot">
+<option>11:00 AM - 12:00 PM</option>
+<option>12:00 PM - 1:00 PM</option>
+<option>1:00 PM - 2:00 PM</option>
 <option>2:00 PM - 3:00 PM</option>
 <option>3:00 PM - 4:00 PM</option>
 <option>4:00 PM - 5:00 PM</option>
@@ -94,13 +86,22 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
 e.preventDefault();
 
 fetch("https://script.google.com/macros/s/AKfycbzGGFRUE5K1gtFKnmZbMvK-leYyLC0afG16AHpxe15WOtyOsnlMd0SFame5jjlmPCjr/exec", {
-method: "POST",
-body: JSON.stringify({
+method: "POST",body: JSON.stringify({
+action: "booking",
+
+UnitNumber: localStorage.getItem("UnitNumber"),
+
 BookingDate: document.querySelector('[name="BookingDate"]').value,
+
 Duration: document.querySelector('[name="Duration"]').value,
+
 TimeSlot: document.querySelector('[name="TimeSlot"]').value,
+
 MatchType: document.querySelector('[name="MatchType"]').value,
-Notes: document.querySelector('[name="Notes"]').value
+
+Notes: document.querySelector('[name="Notes"]').value,
+
+Status: "Approved"
 })
 })
 .then(response => response.text())

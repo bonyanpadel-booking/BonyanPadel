@@ -63,6 +63,11 @@ PIN: document.querySelector('[name="PIN"]').value
 
 if (data == "LOGIN_SUCCESS") {
 
+localStorage.setItem(
+"UnitNumber",
+document.querySelector('[name="UnitNumber"]').value
+);
+
 alert("Login Successful");
 
 window.location.href = "dashboard.html";

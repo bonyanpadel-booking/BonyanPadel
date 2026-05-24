@@ -34,6 +34,9 @@
 
 <h2>Dashboard</h2>
 
+<h3 id="welcomeUser"></h3>
+
+<button id="logoutBtn">Logout</button>
 <div class="features">
 
   <div class="card">
@@ -69,3 +72,35 @@
   </div>
 
 </div>
+
+</section>
+<script>
+
+const unitNumber =
+localStorage.getItem("UnitNumber");
+
+if (!unitNumber) {
+
+window.location.href = "login.html";
+
+}
+
+document.getElementById("welcomeUser").innerText =
+"Welcome " + unitNumber;
+
+document.getElementById("logoutBtn")
+.addEventListener("click", function () {
+
+localStorage.removeItem("UnitNumber");
+
+window.location.href = "login.html";
+
+});
+
+</script>
+<footer>
+<p>© 2026 Bonyan Padel. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
