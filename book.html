@@ -114,14 +114,30 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
   .then(response => response.text())
   .then(data => {
 
-    document.getElementById("result").innerText = data;
-
     if (data === "BOOKING_SUCCESS") {
+
+      document.getElementById("result").innerText =
+        "Booking submitted successfully.";
+
       document.getElementById("bookingForm").reset();
+
+    } else if (data === "TIME_SLOT_TAKEN") {
+
+      document.getElementById("result").innerText =
+        "This time slot is already booked. Please choose another slot.";
+
+    } else if (data === "MISSING_DATA") {
+
+      document.getElementById("result").innerText =
+        "Please complete all required fields.";
+
+    } else {
+
+      document.getElementById("result").innerText = data;
+
     }
 
-  })
-  .catch(error => {
+})
 
     document.getElementById("result").innerText =
       "Connection Error";
