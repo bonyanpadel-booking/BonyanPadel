@@ -34,18 +34,23 @@
 
 <h2>My Bookings</h2>
 
-<table border="1" style="width:100%; background:white;">
+<table id="bookingsTable" border="1" style="width:100%; background:white;">
 <tr>
 <th>Date</th>
 <th>Time</th>
+<th>Duration</th>
+<th>Match Type</th>
 <th>Status</th>
 </tr>
+<tbody id="bookingsBody">
 
 <tr>
-<td>--</td>
-<td>--</td>
-<td>No Bookings Yet</td>
+
+<td colspan="5">Loading...</td>
 </tr>
+
+</tbody>
+
 </table>
 
 </section>
@@ -53,6 +58,73 @@
 <footer>
 <p>© 2026 Bonyan Padel. All rights reserved.</p>
 </footer>
+
+<p id="result"></p>
+
+<script>
+
+const WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbzAm0BnBmMINHwKyQVWLicCLqJHr9dD7TGAfggF7MCIGAnFXvod2Cj3nnKlYFk5yubt/exec";
+
+const unitNumber =
+localStorage.getItem("UnitNumber");
+
+document.getElementById("result").innerText =
+"Unit: " + unitNumber;
+
+fetch(WEB_APP_URL, {
+  method: "POST",
+  body: JSON.stringify({
+    action: "mybookings",
+    UnitNumber: unitNumber
+  })
+})
+.then(response => response.json())
+.then(data => {
+
+  const tableBody =
+    document.getElementById("bookingsBody");
+
+  tableBody.innerHTML = "";
+
+  if (data.length === 0) {
+
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="5">
+          No Bookings Found
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  data.forEach(function(booking) {
+
+    tableBody.innerHTML += `
+      <tr>
+        <td>${booking.BookingDate}</td>
+        <td>${booking.TimeSlot}</td>
+        <td>${booking.Duration}</td>
+        <td>${booking.MatchType}</td>
+        <td>${booking.Status}</td>
+      </tr>
+    `;
+
+  });
+
+})
+.catch(error => {
+
+  document.getElementById("result").innerText =
+    "Error Loading Bookings";
+
+  console.error(error);
+
+});
+
+</script>
 
 </body>
 </html>

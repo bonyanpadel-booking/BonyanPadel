@@ -34,19 +34,19 @@
 <section>
 
 <h2>Reserve a Time</h2>
-
 <form id="bookingForm">
+
 <label>Booking Date</label>
-<input type="date" name="BookingDate" required>
+<input type="date" id="BookingDate" name="BookingDate" required>
 
 <label>Duration</label>
-<select name="Duration">
+<select id="Duration" name="Duration">
 <option>1 Hour</option>
 <option>2 Hours</option>
 </select>
 
 <label>Time Slot</label>
-<select name="TimeSlot">
+<select id="TimeSlot" name="TimeSlot">
 <option>11:00 AM - 12:00 PM</option>
 <option>12:00 PM - 1:00 PM</option>
 <option>1:00 PM - 2:00 PM</option>
@@ -62,18 +62,18 @@
 </select>
 
 <label>Match Type</label>
-<select name="MatchType">
+<select id="MatchType" name="MatchType">
 <option>Closed Match</option>
 <option>Open Match</option>
 </select>
 
 <label>Notes (Optional)</label>
-<input type="text" name="Notes" placeholder="Any notes">
+<input type="text" id="Notes" name="Notes" placeholder="Any notes">
 
 <button type="submit">Book Now</button>
 
 </form>
-
+<p id="result"></p>
 </section>
 
 <footer>
@@ -81,39 +81,75 @@
 </footer>
 
 <script>
+
+const WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbzAm0BnBmMINHwKyQVWLicCLqJHr9dD7TGAfggF7MCIGAnFXvod2Cj3nnKlYFk5yubt/exec";
+
 document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
-e.preventDefault();
+  e.preventDefault();
 
-fetch("https://script.google.com/macros/s/AKfycbzAm0BnBmMINHwKyQVWLicCLqJHr9dD7TGAfggF7MCIGAnFXvod2Cj3nnKlYFk5yubt/exec", {
-method: "POST",body: JSON.stringify({
-action: "booking",
+  fetch(WEB_APP_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "booking",
 
-UnitNumber: localStorage.getItem("UnitNumber"),
+      UnitNumber: localStorage.getItem("UnitNumber"),
 
-BookingDate: document.querySelector('[name="BookingDate"]').value,
+      BookingDate: document.getElementById("BookingDate").value,
 
-Duration: document.querySelector('[name="Duration"]').value,
+      Duration: document.getElementById("Duration").value,
 
-TimeSlot: document.querySelector('[name="TimeSlot"]').value,
+      TimeSlot: document.getElementById("TimeSlot").value,
 
-MatchType: document.querySelector('[name="MatchType"]').value,
+      MatchType: document.getElementById("MatchType").value,
 
-Notes: document.querySelector('[name="Notes"]').value,
+      Notes: document.getElementById("Notes").value,
 
-Status: "Approved"
+      Status: "Pending"
+    })
+  })
+  .then(response => response.text())
+  .then(data => {
+
+  if (data === "BOOKING_SUCCESS") {
+
+    document.getElementById("result").innerText =
+      "Booking submitted successfully.";
+
+    document.getElementById("bookingForm").reset();
+  }
+
+  else if (data === "TIME_SLOT_TAKEN") {
+
+    document.getElementById("result").innerText =
+      "This time slot is already booked. Please choose another slot.";
+  }
+
+  else if (data === "MISSING_DATA") {
+
+    document.getElementById("result").innerText =
+      "Please complete all required fields.";
+  }
+
+  else {
+
+    document.getElementById("result").innerText =
+      data;
+  }
+
 })
-})
-.then(response => response.text())
-.then(data => {
+  .catch(error => {
 
-alert(data);
+    document.getElementById("result").innerText =
+      "Connection Error";
 
-document.getElementById("bookingForm").reset();
+    console.error(error);
 
-})
+  });
+
 });
-</script>
 
+</script>
 </body>
 </html>
