@@ -84,7 +84,9 @@
 
 const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbzAm0BnBmMINHwKyQVWLicCLqJHr9dD7TGAfggF7MCIGAnFXvod2Cj3nnKlYFk5yubt/exec";
-
+if (!localStorage.getItem("UnitNumber")) {
+  window.location.href = "login.html";
+}
 document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
   e.preventDefault();
